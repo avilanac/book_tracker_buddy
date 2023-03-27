@@ -22,22 +22,21 @@ try:
     )
     cursor = connect.cursor()
     
-    data = r"E:\Practicas\Proyects\book_tracker_buddy\data\buscabooks_process.csv"
+    data = r"E:\Practicas\Proyects\book_tracker_buddy\data\goodreads_process.csv"
     df = pd.read_csv(data)
 
     # Iterating over the rows of the dataframe and inserting the values into the database.
     for index, row in df.iterrows():
         title = row["Title"]
         author = row["Author"]
-        discount = row["Discount"]
-        price_before = row["Price before"]
-        price_now = row["Price now"]
-        editorial = row["Editorial"]
-        year = row["Year"]
+        stars = row["Stars"]
+        n_ratings = row["N.Ratings"]
+        score = row["Score"]
+        people_voted = row["People voted"]
 
-        query = """INSERT INTO books (title, author, discount, price_before, price_now, editorial, year_plu)
-        VALUES (%s, %s, %s, %s, %s, %s, %s)"""
-        values = (title, author, discount, price_before, price_now, editorial, year)
+        query = """INSERT INTO goodreads (title, author, stars, n_ratings, score, people_voted)
+        VALUES (%s, %s, %s, %s, %s, %s)"""
+        values = (title, author, stars, n_ratings, score, people_voted)
 
         cursor.execute(query, values)
 
